@@ -4,12 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pandas = "*"
-scikit-learn = "*"
-flask = "*"
-gunicorn = "*"
-streamlit = "*"
-requests = "*"
+flask = "==3.0.3"
+scikit-learn = "==1.7.0"
+pandas = "==2.2.2"
+gunicorn = "==22.0.0"
+streamlit = "==1.38.0"
+requests = "==2.32.3"
+colorama = "==0.4.6"
 
 [dev-packages]
 
