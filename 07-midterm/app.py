@@ -63,19 +63,19 @@ if st.button("Predict Grade"):
         X = pd.DataFrame([data])
 
 # --- Predict ---
-pred = model.predict(X)[0]
+    pred = model.predict(X)[0]
 
-# Map numeric labels to grades
-grade_map = {0: "A", 1: "B", 2: "C", 3: "D", 4: "F"}
+    # Map numeric labels to grades
+    grade_map = {0: "A", 1: "B", 2: "C", 3: "D", 4: "F"}
 
-# Handle floats or NumPy types
-try:
-    # convert float or np.int64 → int if possible
-    pred_int = int(pred)
-    if pred_int in grade_map:
-        st.success(f"🎯 Predicted Grade: **{grade_map[pred_int]}**")
-    else:
-        st.info(f"🎯 Model predicted value: **{pred_int}** (no matching label in grade_map)")
-except Exception:
-    # fallback if model returns a string (like 'A')
-    st.success(f"🎯 Predicted Grade: **{pred}**")
+    # Handle floats or NumPy types
+    try:
+        # convert float or np.int64 → int if possible
+        pred_int = int(pred)
+        if pred_int in grade_map:
+            st.success(f"🎯 Predicted Grade: **{grade_map[pred_int]}**")
+        else:
+            st.info(f"🎯 Model predicted value: **{pred_int}** (no matching label in grade_map)")
+    except Exception:
+        # fallback if model returns a string (like 'A')
+        st.success(f"🎯 Predicted Grade: **{pred}**")
