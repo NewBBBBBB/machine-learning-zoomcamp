@@ -130,7 +130,9 @@ docker build -t student-grade-api .
 docker run -p 9696:9696 student-grade-api
 ```
 Flask API will be available at 👉 http://localhost:9696/predict
+
 ---
+
 ### 🔹 3️⃣ Deploy on AWS EC2 (Windows Server 2025)
 
 #### 🧩 Steps
