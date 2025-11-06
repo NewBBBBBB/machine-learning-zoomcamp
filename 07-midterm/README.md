@@ -120,6 +120,7 @@ pipenv run python predict.py
 pipenv run streamlit run app.py --server.port 8501
 Then open 👉 http://localhost:8501
 
+---
 
 ### 🔹 2️⃣ Run via Docker
 ```bash
@@ -127,7 +128,7 @@ docker build -t student-grade-api .
 # Run container
 docker run -p 9696:9696 student-grade-api
 Flask API will be available at 👉 http://localhost:9696/predict
-
+---
 ### 🔹 3️⃣ Deploy on AWS EC2 (Windows Server 2025)
 
 #### 🧩 Steps
