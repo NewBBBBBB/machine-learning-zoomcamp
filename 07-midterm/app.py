@@ -38,7 +38,7 @@ sports = st.selectbox("Sports", ["Yes", "No"])
 music = st.selectbox("Music", ["Yes", "No"])
 volunteering = st.selectbox("Volunteering", ["Yes", "No"])
 
- --- Predict Button ---
+# --- Predict Button ---
 if st.button("Predict Grade"):
     # Convert user input
     data = {
