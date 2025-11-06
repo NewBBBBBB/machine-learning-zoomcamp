@@ -1,51 +1,35 @@
+import pickle
+import pandas as pd
 import streamlit as st
-import requests
 
-st.set_page_config(page_title="Student Grade Predictor", page_icon="🎓")
+# Load model
+with open("logistic_regression_model.pkl", "rb") as f:
+    model = pickle.load(f)
 
-st.title("🎓 Student Grade Prediction App")
-st.write("Enter the student's information below to predict their grade.")
+st.title("🎓 Student Performance Predictor")
 
-# --- Input fields ---
-gender = st.selectbox("Gender", ["Male", "Female"])
-age = st.number_input("Age", min_value=15, max_value=18, value=17)
-ethnicity = st.selectbox("Ethnicity", ["Caucasian", "African American", "Asian", "Other"])
-parentaleducation = st.selectbox("Parental Education", ["None", "High School", "Some College", "Bachelor's", "Higher"])
-studytimeweekly = st.number_input("Study Time Weekly (hours)", min_value=0, max_value=20, value=5)
-absences = st.number_input("Absences", min_value=0, max_value=30, value=2)
-tutoring = st.selectbox("Tutoring", ["Yes", "No"])
-parentalsupport = st.selectbox("Parental Support", ["None", "Low", "Moderate", "High", "Very High"])
-extracurricular = st.selectbox("Extracurricular", ["Yes", "No"])
-sports = st.selectbox("Sports", ["Yes", "No"])
-music = st.selectbox("Music", ["Yes", "No"])
-volunteering = st.selectbox("Volunteering", ["Yes", "No"])
+# Input fields
+age = st.number_input("Age", 15, 18, 16)
+study_time = st.number_input("Study Time Weekly (hours)", 0, 20, 10)
+absences = st.number_input("Absences (per year)", 0, 30, 3)
+parent_support = st.slider("Parental Support (0-4)", 0, 4, 2)
+tutoring = st.selectbox("Tutoring", ["No", "Yes"])
+extracurricular = st.selectbox("Extracurricular", ["No", "Yes"])
 
-# --- When button clicked ---
-if st.button("Predict Grade"):
-    student_data = [{
-        "gender": gender,
+# Convert to numeric
+tutoring = 1 if tutoring == "Yes" else 0
+extracurricular = 1 if extracurricular == "Yes" else 0
+
+# Predict
+if st.button("Predict Grade Class"):
+    X = pd.DataFrame([{
         "age": age,
-        "ethnicity": ethnicity,
-        "parentaleducation": parentaleducation,
-        "studytimeweekly": studytimeweekly,
+        "studytimeweekly": study_time,
         "absences": absences,
+        "parentalsupport": parent_support,
         "tutoring": tutoring,
-        "parentalsupport": parentalsupport,
-        "extracurricular": extracurricular,
-        "sports": sports,
-        "music": music,
-        "volunteering": volunteering
-    }]
-
-    # URL of your Flask API
-    url = "http://localhost:9696/predict"
-
-    try:
-        response = requests.post(url, json=student_data)
-        if response.status_code == 200:
-            result = response.json()[0]["predicted_grade"]
-            st.success(f"🎯 Predicted Grade: **{result}**")
-        else:
-            st.error(f"API error: {response.status_code}")
-    except Exception as e:
-        st.error(f"Connection failed: {e}")
+        "extracurricular": extracurricular
+    }])
+    prediction = model.predict(X)[0]
+    grade_map = {0: "A", 1: "B", 2: "C", 3: "D", 4: "F"}
+    st.success(f"Predicted Grade: {grade_map[prediction]}")
