@@ -1,9 +1,11 @@
 import pickle
 import pandas as pd
 import streamlit as st
+import os
 
 # Load model
-with open("logistic_regression_model.pkl", "rb") as f:
+model_path = os.path.join(os.path.dirname(__file__), "logistic_regression_model.pkl")
+with open(model_path, "rb") as f:
     model = pickle.load(f)
 
 st.title("🎓 Student Performance Predictor")
