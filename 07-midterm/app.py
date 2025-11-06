@@ -65,9 +65,6 @@ if st.button("Predict Grade"):
 # --- Predict ---
 pred = model.predict(X)[0]
 
-# Debug info (you can remove after testing)
-st.write("Raw model prediction:", pred, " | Type:", type(pred))
-
 # Map numeric labels to grades
 grade_map = {0: "A", 1: "B", 2: "C", 3: "D", 4: "F"}
 
