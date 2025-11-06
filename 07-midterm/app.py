@@ -28,30 +28,27 @@ volunteering = st.selectbox("Volunteering", ["Yes", "No"])
 
 # --- When button clicked ---
 if st.button("Predict Grade"):
-    student_data = [{
-        "gender": gender,
-        "age": age,
-        "ethnicity": ethnicity,
-        "parentaleducation": parentaleducation,
-        "studytimeweekly": studytimeweekly,
-        "absences": absences,
-        "tutoring": tutoring,
-        "parentalsupport": parentalsupport,
-        "extracurricular": extracurricular,
-        "sports": sports,
-        "music": music,
-        "volunteering": volunteering
-    }]
+    # Convert categorical inputs to numeric as your model expects
+    mapping_gender = {"Male": 0, "Female": 1}
+    mapping_ethnicity = {"Caucasian": 0, "African American": 1, "Asian": 2, "Other": 3}
+    mapping_parentaledu = {"None": 0, "High School": 1, "Some College": 2, "Bachelor's": 3, "Higher": 4}
+    mapping_support = {"None": 0, "Low": 1, "Moderate": 2, "High": 3, "Very High": 4}
 
-    # URL of your Flask API
-    url = "http://localhost:9696/predict"
+    data = [[
+        age,
+        mapping_gender[gender],
+        mapping_ethnicity[ethnicity],
+        mapping_parentaledu[parentaleducation],
+        studytimeweekly,
+        absences,
+        1 if tutoring == "Yes" else 0,
+        mapping_support[parentalsupport],
+        1 if extracurricular == "Yes" else 0,
+        1 if sports == "Yes" else 0,
+        1 if music == "Yes" else 0,
+        1 if volunteering == "Yes" else 0,
+    ]]
 
-    try:
-        response = requests.post(url, json=student_data)
-        if response.status_code == 200:
-            result = response.json()[0]["predicted_grade"]
-            st.success(f"🎯 Predicted Grade: **{result}**")
-        else:
-            st.error(f"API error: {response.status_code}")
-    except Exception as e:
-        st.error(f"Connection failed: {e}")
+    prediction = model.predict(data)[0]
+    grade_map = {0: "A", 1: "B", 2: "C", 3: "D", 4: "F"}
+    st.success(f"🎯 Predicted Grade: **{grade_map[prediction]}**")
