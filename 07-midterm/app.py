@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import pickle
 import os
+import pandas as pd
 
 model_path = os.path.join(os.path.dirname(__file__), "logistic_regression_model.pkl")
 with open(model_path, "rb") as f:
