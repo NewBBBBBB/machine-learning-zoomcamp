@@ -169,8 +169,8 @@ pipenv run streamlit run app.py --server.port 8501 --server.address 0.0.0.0
 ```
 
 6. **Access Web Apps**
-- Streamlit → http://<your-public-ip>:8501
-- Flask → http://<your-public-ip>:9696/predict
+- Streamlit → http://54.208.175.193:8501
+- Flask → http://54.208.175.193:9696/predict
 
 7. **After Testing**
 - Go to your AWS EC2 Console
@@ -186,30 +186,17 @@ After successful deployment, the instance was **stopped to avoid additional AWS 
 
 Below are some screenshots and evidence of the deployment process 👇  
 
-| Proof | Description |
-|--------|--------------|
-| ✅ **AWS Console Screenshot** | Instance `student-grade` successfully running on Windows Server 2025 |
-| ✅ **PowerShell Output** | Flask: `Running on http://0.0.0.0:9696`<br>Streamlit: `You can now view your Streamlit app at http://0.0.0.0:8501` |
-| ✅ **Public Access Test** | Streamlit web app accessible via [http://54.208.175.193:8501](http://54.208.175.193:8501) |
-| ✅ **Billing Status** | Instance was stopped after verification to prevent extra charges |
-
----
-
 You can find below how the endpoints behaved during deployment:
 
 - **Streamlit UI:** [http://54.208.175.193:8501](http://54.208.175.193:8501)  
 - **Flask API:** [http://54.208.175.193:9696/predict](http://54.208.175.193:9696/predict)  
 
----
-
-###  📸 Visual Results  
-
 Below are screenshots from the deployed application:  
 
 | Screenshot | Description |
 |-------------|--------------|
-| ![Streamlit UI](images/Streamlit_UI.png) | Streamlit main interface showing student performance prediction input |
-| ![Streamlit UI 1](images/Streamlit_UI_1.png) | Streamlit output displaying predicted GradeClass |
+| ![Streamlit UI](images/StreamlitUI.png) | Streamlit main interface showing student performance prediction input |
+| ![Streamlit UI 1](images/StreamlitUI1.png) | Streamlit output displaying predicted GradeClass |
 | ![Dashboard](images/Dashboard.png) | Dashboard summarizing feature importance and model performance |
 
 ## 🧩 Acknowledgment  
