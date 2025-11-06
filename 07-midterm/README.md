@@ -118,6 +118,7 @@ cd machine-learning-zoomcamp/07-midterm
 pipenv install
 pipenv run python predict.py
 pipenv run streamlit run app.py --server.port 8501
+```
 Then open 👉 http://localhost:8501
 
 ---
@@ -127,6 +128,7 @@ Then open 👉 http://localhost:8501
 docker build -t student-grade-api .
 # Run container
 docker run -p 9696:9696 student-grade-api
+```
 Flask API will be available at 👉 http://localhost:9696/predict
 ---
 ### 🔹 3️⃣ Deploy on AWS EC2 (Windows Server 2025)
@@ -153,6 +155,7 @@ Flask API will be available at 👉 http://localhost:9696/predict
    pip install pipenv
    cd C:\machine-learning-zoomcamp\07-midterm
    pipenv install
+   ```
 
 5. **Run Both Applications**
 ```powershell
@@ -161,6 +164,7 @@ pipenv run python predict.py
 
 # In another PowerShell window
 pipenv run streamlit run app.py --server.port 8501 --server.address 0.0.0.0
+```
 
 6. **Access Web Apps**
 - Streamlit → http://<your-public-ip>:8501
