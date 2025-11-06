@@ -72,39 +72,138 @@ This project seeks to:
 
 ## 🚀 Tools & Libraries  
 
-- **Python 3.10+**  
+- **Python 3.12**  
 - **Pandas**, **NumPy** — data manipulation and preprocessing  
 - **Seaborn**, **Matplotlib** — visualization and correlation analysis  
-- **Scikit-learn** — model building, evaluation, and hyperparameter tuning    
-- **Jupyter Notebook** — experimentation and reporting  
+- **Scikit-learn** — model building and evaluation  
+- **Flask**, **Streamlit** — deployment and UI  
+- **Pipenv**, **Docker** — environment management  
+- **AWS EC2 (Windows Server 2025)** — cloud deployment  
+
+---
+## 🧠 Machine-Learning Approach  
+
+1. **Data Preprocessing**  
+   - Removed redundant features (e.g., GPA to avoid data leakage)  
+   - Handled missing values  
+   - Mapped categorical values (e.g., 0/1 → No/Yes)  
+   - Standardized column names  
+
+2. **Exploratory Data Analysis**  
+   - Pearson correlation with GradeClass  
+   - Feature importance via Random Forest  
+
+3. **Model Development**  
+   - Logistic Regression (baseline and tuned)  
+   - Random Forest (baseline and tuned)  
+   - Decision Tree (baseline)  
+
+4. **Evaluation**  
+   - Metrics: Accuracy, Precision, Recall, F1 (Macro)  
+   - 5-fold cross-validation using `GridSearchCV`  
 
 ---
 
-## 🧠 Machine Learning Approach  
+## ⚙️ Deployment Methods  
 
-1. **Data Preprocessing**
-   - Removed redundant features (e.g., GPA to avoid data leakage)
-   - Handled missing values (if any)
-   - Performed **categorical mapping and encoding** (e.g., converting 0/1 to “No/Yes” or vice versa)
-   - Ensured consistent column naming (lowercase and underscore formatting) 
+### 🔹 1️⃣ Run Locally
+#### Prerequisites  
+- Python 3.10 or newer  
+- Pipenv (`pip install pipenv`)  
 
-2. **Exploratory Data Analysis (EDA)**
-   - Correlation & Mutual Information analysis  
-   - Feature importance with Random Forest  
+#### Steps
+```bash
+git clone https://github.com/NewBBBBBB/machine-learning-zoomcamp
+cd machine-learning-zoomcamp/07-midterm
+pipenv install
+pipenv run python predict.py
+pipenv run streamlit run app.py --server.port 8501
+Then open 👉 http://localhost:8501
 
-3. **Model Development**
-   - Logistic Regression  
-   - Random Forest Classifier  
-   - Decision Tree (baseline only)
 
-4. **Model Evaluation**
-   - Metrics: Accuracy, Precision, Recall, F1-score (Macro)  
-   - Cross-validation with `GridSearchCV` for tuning  
+### 🔹 2️⃣ Run via Docker
+```bash
+docker build -t student-grade-api .
+# Run container
+docker run -p 9696:9696 student-grade-api
+Flask API will be available at 👉 http://localhost:9696/predict
 
-5. **Final Comparison**
-   - Compare baseline vs tuned models in one results table  
+### 🔹 3️⃣ Deploy on AWS EC2 (Windows Server 2025)
+
+#### 🧩 Steps
+
+1. **Launch EC2 Instance**
+   - **AMI:** Windows Server 2025 – English Full Base (Free Tier eligible)
+   - **Instance Type:** `t3.micro` or `t3.small`
+
+2. **Configure Inbound Rules**
+   | Port | Protocol | Purpose |
+   |------|-----------|----------|
+   | 3389 | TCP | Remote Desktop (RDP) |
+   | 8501 | TCP | Streamlit UI |
+   | 9696 | TCP | Flask API |
+
+3. **Connect via Remote Desktop (RDP)**  
+   Log in using your downloaded `.pem` key file to decrypt the Windows administrator password.
+
+4. **Install Dependencies**
+   Open **PowerShell** and run:
+   ```powershell
+   pip install pipenv
+   cd C:\machine-learning-zoomcamp\07-midterm
+   pipenv install
+
+5. **Run Both Applications**
+```powershell
+# Run Flask API
+pipenv run python predict.py
+
+# In another PowerShell window
+pipenv run streamlit run app.py --server.port 8501 --server.address 0.0.0.0
+
+6. **Access Web Apps**
+- Streamlit → http://<your-public-ip>:8501
+- Flask → http://<your-public-ip>:9696/predict
+
+7. **After Testing**
+- Go to your AWS EC2 Console
+- Select the instance
+- Click Stop Instance (⚠️ Do not Terminate, or your data will be lost)
+- Stopping prevents further billing.
+
+## 🧾 Deployment Proof (AWS)
+
+✅ Successfully deployed **Flask API** and **Streamlit UI** on **AWS EC2 (Windows Server 2025)**.  
+The instance type used was **t3.micro (Free Tier)**.  
+After successful deployment, the instance was **stopped to avoid additional AWS costs**.  
+
+Below are some screenshots and evidence of the deployment process 👇  
+
+| Proof | Description |
+|--------|--------------|
+| ✅ **AWS Console Screenshot** | Instance `student-grade` successfully running on Windows Server 2025 |
+| ✅ **PowerShell Output** | Flask: `Running on http://0.0.0.0:9696`<br>Streamlit: `You can now view your Streamlit app at http://0.0.0.0:8501` |
+| ✅ **Public Access Test** | Streamlit web app accessible via [http://54.208.175.193:8501](http://54.208.175.193:8501) |
+| ✅ **Billing Status** | Instance was stopped after verification to prevent extra charges |
 
 ---
+
+You can find below how the endpoints behaved during deployment:
+
+- **Streamlit UI:** [http://54.208.175.193:8501](http://54.208.175.193:8501)  
+- **Flask API:** [http://54.208.175.193:9696/predict](http://54.208.175.193:9696/predict)  
+
+---
+
+###  📸 Visual Results  
+
+Below are screenshots from the deployed application:  
+
+| Screenshot | Description |
+|-------------|--------------|
+| ![Streamlit UI](images/Streamlit_UI.png) | Streamlit main interface showing student performance prediction input |
+| ![Streamlit UI 1](images/Streamlit_UI_1.png) | Streamlit output displaying predicted GradeClass |
+| ![Dashboard](images/Dashboard.png) | Dashboard summarizing feature importance and model performance |
 
 ## 🧩 Acknowledgment  
 
