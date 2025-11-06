@@ -1,7 +1,8 @@
 # 🎓 Students Performance Prediction using Machine Learning  
 ### Machine Learning Zoomcamp Midterm Project  
 
-🚀 **Live Demo (Streamlit Cloud):** [https://student-performance-predictor.streamlit.app](https://student-performance-predictor.streamlit.app)
+🚀 **Live Demo:** [Open on Streamlit Cloud](https://machine-learning-zoomcamp-b7ofzjzvjv7ecfyqzubv6k.streamlit.app)
+
 
 ---
 
