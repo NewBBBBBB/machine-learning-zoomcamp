@@ -1,32 +1,112 @@
 # 🎭 Twitter Sentiment Analysis using Machine Learning  
 ### Machine Learning Zoomcamp Midterm Project  
-🚀 **Live Demo:** [Open on Streamlit Cloud](https://your-streamlit-app-url.streamlit.app)  
-*(Replace with your actual demo link once deployed)*  
+
+🚀 **Live Demo:** *(Optional – add link if deployed)*  
 ---  
+
 ## 📘 Dataset Description  
-This project uses the **[Sentiment140 Dataset](https://www.kaggle.com/datasets/kazanova/sentiment140)** created by *Kazanova (2009)*.  
-The dataset contains **1,600,000 labeled tweets**, extracted using the Twitter API, with sentiment polarities for positive and negative tweets.  
-The goal is to build a **machine learning model** that predicts the sentiment (positive or negative) of incoming tweets based on their text content.  
----  
-## 🧩 Attribute Information  
-### 📱 Tweet Information  
-| Feature | Description |  
-|----------|--------------|  
-| **target** | Sentiment label: 0 = Negative, 4 = Positive (Note: 2 = Neutral is not present in this dataset) |  
-| **ids** | Unique ID for each tweet |  
-| **date** | UTC timestamp of the tweet |  
-| **flag** | Query flag (if the tweet was collected via search; often "NO_QUERY") |  
-| **user** | Twitter username of the poster |  
-| **text** | The raw text content of the tweet |  
----  
-## 🎯 Problem Statement  
-Social media platforms like Twitter generate vast amounts of text data reflecting public opinions, emotions, and trends.  
-The aim of this project is to **predict the sentiment of incoming tweets** (positive or negative) using natural language processing and machine learning techniques.  
-This project seeks to:  
-- Identify key textual features influencing sentiment  
-- Build classification models to predict tweet sentiment  
-- Analyze model performance on real-world, noisy text data (e.g., handling abbreviations, emojis, and slang)  
+
+This project uses the **Sentiment140 Dataset** created by *Kazanova (2009)*.  
+The dataset contains **1,600,000 labeled tweets**, collected via the Twitter API, with sentiment polarity labels.
+
+The objective is to build a **machine learning model** that predicts whether a tweet expresses **positive or negative sentiment** based solely on its text content.
+
 ---
+
+## 🧩 Attribute Information  
+
+### 📱 Tweet Information  
+
+| Feature | Description |
+|--------|-------------|
+| **target** | Sentiment label: 0 = Negative, 4 = Positive |
+| **id** | Unique identifier for each tweet |
+| **date** | Timestamp when the tweet was posted |
+| **flag** | Query flag (typically `NO_QUERY`) |
+| **user** | Twitter username |
+| **text** | Raw tweet content |
+
+> Only the `target` and `text` columns are used in this project.  
+> All other metadata fields were removed as they do not contribute meaningful signal for sentiment prediction.
+
+---
+
+## 🎯 Problem Statement  
+
+Social media platforms generate large volumes of unstructured text reflecting opinions, emotions, and reactions.  
+The goal of this project is to **automatically classify tweet sentiment** as **positive or negative** using classical NLP and machine learning techniques.
+
+This project aims to:
+- Understand the structure and characteristics of real-world tweet data  
+- Extract meaningful textual features for sentiment prediction  
+- Compare multiple linear classification models  
+- Build a reproducible and deployable sentiment analysis pipeline  
+
+---
+
+## 🧠 Machine Learning Approach  
+
+### A. Data Preparation & Cleaning
+- Removed non-text metadata columns
+- Converted sentiment labels (0 → negative, 4 → positive)
+- Normalized text by:
+  - Lowercasing
+  - Removing URLs and user mentions
+  - Removing punctuation, numbers, and special characters
+  - Normalizing whitespace
+- No stemming or lemmatization was applied to preserve feature interpretability
+
+### B. Exploratory Data Analysis (EDA)
+- Analyzed tweet length and word count distributions
+- Verified class balance between positive and negative tweets
+- Inspected common words and sentiment-bearing terms
+- Examined noise patterns such as URLs, mentions, and hashtags
+
+### C. Feature Engineering
+- Used **TF-IDF vectorization**
+- Evaluated both:
+  - Unigrams `(1,1)`
+  - Unigrams + bigrams `(1,2)`
+- Stopwords were removed during vectorization
+- Bigram features helped capture sentiment phrases (e.g. *“not good”*)
+
+### D. Feature Importance Analysis
+Two complementary methods were used:
+- **Logistic Regression coefficients** (model-based interpretability)
+- **Chi-square statistics** (model-agnostic validation)
+
+Both methods consistently highlighted emotionally meaningful words such as *“happy”*, *“love”*, *“sad”*, and *“disappointed”*.
+
+### E. Model Selection & Tuning
+Models evaluated:
+- Logistic Regression (baseline and tuned)
+- Linear Support Vector Machine (baseline and tuned)
+
+Hyperparameter tuning was performed using **GridSearchCV** with 3-fold cross-validation.
+
+The tuned **Logistic Regression model** was selected as the final model due to:
+- Competitive performance
+- Strong interpretability
+- Availability of probability estimates (important for deployment)
+
+---
+
+## 📊 Model Comparison Summary  
+
+| Model | Accuracy | F1 Score |
+|-----|----------|----------|
+| Logistic Regression (Baseline) | ~0.76 | ~0.77 |
+| Linear SVM (Baseline) | ~0.77 | ~0.77 |
+| Logistic Regression (Tuned) | ~0.79 | ~0.80 |
+| Linear SVM (Tuned) | ~0.78 | ~0.79 |
+
+---
+
+## ⚙️ Deployment  
+
+The final model is exposed via a **FastAPI** application.
+
+### API Endpoint
 
 ## 🧩 Acknowledgment  
 
