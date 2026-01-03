@@ -44,6 +44,20 @@ This project aims to:
 
 ---
 
+## 📥 Dataset Download Instructions  
+
+The Sentiment140 dataset is **not included** in this repository due to its large file size.
+
+Please download the dataset manually from Kaggle:
+
+https://www.kaggle.com/datasets/kazanova/sentiment140
+
+After downloading, place the CSV file **directly in the project root directory**, i.e. the same folder where `train.py` is located:
+
+```text
+training.1600000.processed.noemoticon.csv
+---
+
 ## 🧠 Machine Learning Approach  
 
 ### A. Data Preparation & Cleaning
@@ -104,9 +118,71 @@ The tuned **Logistic Regression model** was selected as the final model due to:
 
 ## ⚙️ Deployment  
 
-The final model is exposed via a **FastAPI** application.
+The final trained model is deployed using two approaches:
+
+1. **Streamlit Web Application** – for interactive user-facing predictions  
+2. **FastAPI Application (Local)** – for API-based inference and integration  
+
+---
+
+## 🚀 Streamlit Deployment
+A Streamlit application is used to provide a simple and interactive interface where users can input tweet text and receive sentiment predictions in real time.
+
+### Features
+- Text input for tweet content  
+- Displays predicted sentiment (Positive / Negative)  
+- Shows model confidence score  
+- Lightweight and user-friendly UI  
+
+### Run Streamlit Locally
+```bash
+streamlit run app.py
+```
+
+Once started, the application will be available at:
+```bash
+http://localhost:8501
+```
+This deployment is suitable for demonstrations and exploratory use.
+
+---
+
+## 🌐 FastAPI Deployment (Local)
+
+In addition to Streamlit, the model is exposed via a **FastAPI** application to support programmatic access.
 
 ### API Endpoint
+
+**POST** `/predict_sentiment`
+
+### Request Body
+```json
+{
+  "text": "I really love this product!"
+}
+```
+Response
+
+```json
+{
+  "sentiment": "positive",
+  "probability": 0.87
+}
+```
+Run FastAPI Locally
+```bash
+uvicorn app:app --reload
+```
+
+The API will be available at:
+```bash
+http://127.0.0.1:8000
+```
+
+Interactive API documentation can be accessed at:
+```bash
+http://127.0.0.1:8000/docs
+```
 
 ## 🧩 Acknowledgment  
 
