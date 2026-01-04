@@ -1,7 +1,7 @@
 # 🎭 Twitter Sentiment Analysis using Machine Learning  
 ### Machine Learning Zoomcamp Midterm Project  
 
-🚀 **Live Demo:** *(Optional – add link if deployed)*  
+🚀 **Live Demo:** [Open on Streamlit Cloud](https://machine-learning-zoomcamp-ub6k3n9bfd6xgdpxstgrpw.streamlit.app/) 
 ---  
 
 ## 📘 Dataset Description  
