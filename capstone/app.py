@@ -1,10 +1,13 @@
 import streamlit as st
 import pickle
 import re
+from pathlib import Path
 
 # =========================
 # Load model & vectorizer
 # =========================
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "sentiment_model.pkl"
 MODEL_PATH = "sentiment_model.pkl"
 
 with open(MODEL_PATH, "rb") as f_in:
