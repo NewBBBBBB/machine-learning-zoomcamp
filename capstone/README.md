@@ -56,6 +56,8 @@ After downloading, place the CSV file **directly in the project root directory**
 
 ```text
 training.1600000.processed.noemoticon.csv
+```
+
 ---
 
 ## 🧠 Machine Learning Approach  
@@ -116,44 +118,88 @@ The tuned **Logistic Regression model** was selected as the final model due to:
 
 ---
 
-## ⚙️ Deployment  
+## ⚙️ Deployment Methods  
 
-The final trained model is deployed using two approaches:
+### 🔹 1️⃣ Run Locally
 
-1. **Streamlit Web Application** – for interactive user-facing predictions  
-2. **FastAPI Application (Local)** – for API-based inference and integration  
+This method runs the project on your local machine using **Pipenv** for dependency management.
 
 ---
 
-## 🚀 Streamlit Deployment
-A Streamlit application is used to provide a simple and interactive interface where users can input tweet text and receive sentiment predictions in real time.
+#### Prerequisites
+- Python 3.10 or newer  
+- Pipenv (`pip install pipenv`)  
+- Sentiment140 dataset downloaded from Kaggle  
 
-### Features
-- Text input for tweet content  
-- Displays predicted sentiment (Positive / Negative)  
-- Shows model confidence score  
-- Lightweight and user-friendly UI  
+---
 
-### Run Streamlit Locally
+#### Steps
+
+##### 1) Clone the repository
+```bash
+git clone https://github.com/NewBBBBBB/machine-learning-zoomcamp.git
+cd machine-learning-zoomcamp/capstone
+```
+##### 2) Download the dataset
+Download the Sentiment140 dataset from Kaggle: https://www.kaggle.com/datasets/kazanova/sentiment140
+Place the CSV file directly inside the `capstone/` directory (same location as `train.py`):
+
+
+##### 3) Install project dependencies
+```bash
+pipenv install
+```
+
+##### 4) Activate the virtual environment
+```bash
+pipenv shell
+```
+
+##### 5) Train the sentiment analysis model
+```bash
+python train.py
+```
+
+##### 6) Run Streamlit application (UI)
 ```bash
 streamlit run app.py
 ```
-
-Once started, the application will be available at:
-```bash
+Once started, open your browser at:
+```text
 http://localhost:8501
 ```
-This deployment is suitable for demonstrations and exploratory use.
 
----
+##### 7) Run FastAPI application (API)
+Run FastAPI Locally
+```bash
+uvicorn app:app --reload
+```
 
-## 🌐 FastAPI Deployment (Local)
+The API will be available at:
+```text
+http://127.0.0.1:8000
+```
 
-In addition to Streamlit, the model is exposed via a **FastAPI** application to support programmatic access.
+Interactive API documentation can be accessed at:
+```text
+http://127.0.0.1:8000/docs
+```
 
+### 🔹 2️⃣ Run via Docker
+> Note: Docker deployment is intended for **inference only**.  
+> Model training is performed locally using Pipenv.
+```bash
+docker build -t twitter-sentiment-api .
+# Run container
+docker run -p 9696:9696 twitter-sentiment-api
+```
+Once the container is running, the API will be available at:
+```text
+http://localhost:9696
+```
 ### API Endpoint
 
-**POST** `/predict_sentiment`
+**POST** `/predict`
 
 ### Request Body
 ```json
@@ -169,20 +215,7 @@ Response
   "probability": 0.87
 }
 ```
-Run FastAPI Locally
-```bash
-uvicorn app:app --reload
-```
 
-The API will be available at:
-```bash
-http://127.0.0.1:8000
-```
-
-Interactive API documentation can be accessed at:
-```bash
-http://127.0.0.1:8000/docs
-```
 
 ## 🧩 Acknowledgment  
 
