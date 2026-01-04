@@ -172,7 +172,7 @@ http://localhost:8501
 ##### 7) Run FastAPI application (API)
 Run FastAPI Locally
 ```bash
-uvicorn app:app --reload
+uvicorn predict:app --reload
 ```
 
 The API will be available at:
