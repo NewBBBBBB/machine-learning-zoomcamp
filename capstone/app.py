@@ -10,6 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR / "sentiment_model.pkl"
 MODEL_PATH = "sentiment_model.pkl"
 
+st.write("Loading model from:", MODEL_PATH)
 with open(MODEL_PATH, "rb") as f_in:
     model, vectorizer = pickle.load(f_in)
 
